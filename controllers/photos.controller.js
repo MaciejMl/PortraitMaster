@@ -1,5 +1,6 @@
 const Photo = require('../models/photo.model');
 const Voter = require('../models/Voters.model');
+const requestIp = require('request-ip');
 
 /****** SUBMIT PHOTO ********/
 
@@ -71,7 +72,8 @@ exports.loadAll = async (req, res) => {
 exports.vote = async (req, res) => {
   try {
     const photoId = req.params.id;
-    const userIp = req.ip;
+    const userIp = requestIp.getClientIp(req);
+    console.log(userIp);
 
     let voter = await Voter.findOne({ user: userIp });
 
